@@ -25,7 +25,7 @@ public class Player {
     private int jerseyNumber;
 
     public String getFirstName() {
-    return firstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
