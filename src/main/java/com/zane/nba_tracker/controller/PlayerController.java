@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.zane.nba_tracker.dto.ApiResponse;
 import com.zane.nba_tracker.model.Player;
+import com.zane.nba_tracker.service.NbaApiService;
 import com.zane.nba_tracker.service.PlayerService;
 
 @RestController
@@ -21,6 +24,19 @@ import com.zane.nba_tracker.service.PlayerService;
 public class PlayerController {
     @Autowired
     private PlayerService playerService;
+
+    @Autowired
+    private NbaApiService nbaApiService;
+
+    @GetMapping("/search")
+    public ApiResponse searchPlayers(@RequestParam String name) {
+        return nbaApiService.searchPlayers(name);
+    }
+
+    @GetMapping("/team/{teamId}")
+    public ApiResponse getPlayersByTeam(@PathVariable Integer teamId) {
+        return nbaApiService.getPlayersByTeam(teamId);
+    }
 
     @GetMapping
     public List<Player> getAllPlayers() {
