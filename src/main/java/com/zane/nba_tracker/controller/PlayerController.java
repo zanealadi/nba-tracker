@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.zane.nba_tracker.dto.ApiPlayer;
 import com.zane.nba_tracker.dto.ApiResponse;
 import com.zane.nba_tracker.model.Player;
 import com.zane.nba_tracker.service.NbaApiService;
@@ -56,5 +57,10 @@ public class PlayerController {
     @PostMapping
     public Player createEndpoint(@RequestBody Player player) {
         return playerService.savePlayer(player);
+    }
+
+    @PostMapping("/favorites")
+    public Player favEndpoint(@RequestBody ApiPlayer apiPlayer) {
+        return playerService.saveFromApi(apiPlayer);
     }
 }

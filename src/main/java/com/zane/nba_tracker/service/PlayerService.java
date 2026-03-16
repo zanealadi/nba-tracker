@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import com.zane.nba_tracker.dto.ApiPlayer;
 import com.zane.nba_tracker.model.Player;
 import com.zane.nba_tracker.repository.PlayerRepository;
 
@@ -31,5 +32,14 @@ public class PlayerService {
 
     public void deletePlayer(Long id) {
         playerRepository.deleteById(id);
+    }
+
+    public Player saveFromApi(ApiPlayer apiPlayer) {
+        Player player = new Player(apiPlayer.getFirstName(), 
+        apiPlayer.getLastName(), 
+        apiPlayer.getTeam().getName(), 
+        apiPlayer.getPosition(), 
+        apiPlayer.getJerseyNumber());
+        return playerRepository.save(player);
     }
 }
