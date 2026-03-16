@@ -42,4 +42,19 @@ public class PlayerService {
         apiPlayer.getJerseyNumber());
         return playerRepository.save(player);
     }
+
+    public List<Player> getPlayersByTeamName(String teamName) {
+        List<Player> players = playerRepository.findByTeamName(teamName);
+        return players;
+    }
+
+    public List<Player> getPlayersByPosition(String position) {
+        List<Player> players = playerRepository.findByPosition(position);
+        return players;
+    }
+
+    public List<Player> getPlayersByJerseyNumber(Integer jerseyNumber) {
+        List<Player> players = playerRepository.findByJerseyNumber(jerseyNumber);
+        return players;
+    }
 }

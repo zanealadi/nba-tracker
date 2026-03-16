@@ -63,4 +63,22 @@ public class PlayerController {
     public Player favEndpoint(@RequestBody ApiPlayer apiPlayer) {
         return playerService.saveFromApi(apiPlayer);
     }
+
+    @GetMapping("/by-team")
+    public List<Player> listPlayersByTeamName(@RequestParam String teamName) {
+        List<Player> players = playerService.getPlayersByTeamName(teamName);
+        return players;
+    }
+
+    @GetMapping("/by-position")
+    public List<Player> listPlayersByPosition(@RequestParam String position) {
+        List<Player> players = playerService.getPlayersByPosition(position);
+        return players;
+    }
+
+    @GetMapping("/by-jersey")
+    public List<Player> listPlayersByJerseyNumber(@RequestParam Integer jerseyNumber) {
+        List<Player> players = playerService.getPlayersByJerseyNumber(jerseyNumber);
+        return players;
+    }
 }
