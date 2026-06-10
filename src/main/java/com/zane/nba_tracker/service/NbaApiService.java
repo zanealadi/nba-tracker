@@ -17,7 +17,7 @@ public class NbaApiService {
     private String apiKey;
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String BASE_URL = "https://api.balldontlie.io/v1";
+    private final String BASE_URL = "https://api.balldontlie.io/nba/v1/";
 
     public ApiResponse searchPlayers(String name) {
         HttpHeaders headers = new HttpHeaders();
