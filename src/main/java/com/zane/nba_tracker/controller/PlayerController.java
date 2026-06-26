@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.zane.nba_tracker.dto.ApiPlayer;
 import com.zane.nba_tracker.dto.ApiResponse;
+import com.zane.nba_tracker.dto.StatsResponse;
 import com.zane.nba_tracker.model.Player;
 import com.zane.nba_tracker.service.NbaApiService;
 import com.zane.nba_tracker.service.PlayerService;
+
 
 @RestController
 @RequestMapping("/api/players")
@@ -80,5 +82,11 @@ public class PlayerController {
     public List<Player> listPlayersByJerseyNumber(@RequestParam Integer jerseyNumber) {
         List<Player> players = playerService.getPlayersByJerseyNumber(jerseyNumber);
         return players;
+    }
+
+    @GetMapping("/stats")
+    public StatsResponse listPlayersByNameAndSeason(@RequestParam String playerName, @RequestParam Integer season) {
+        StatsResponse stats = nbaApiService.getPlayerStats(playerName, season);
+        return stats;
     }
 }

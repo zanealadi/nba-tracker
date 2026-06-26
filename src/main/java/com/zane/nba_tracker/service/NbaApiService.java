@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
 import com.zane.nba_tracker.dto.ApiResponse;
+import com.zane.nba_tracker.dto.StatsResponse;
 
 @Service
 public class NbaApiService {
@@ -18,6 +19,7 @@ public class NbaApiService {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final String BASE_URL = "https://api.balldontlie.io/nba/v1/";
+    private final String NBA_BASE_URL = "https://api.server.nbaapi.com/api/";
 
     public ApiResponse searchPlayers(String name) {
         HttpHeaders headers = new HttpHeaders();
@@ -35,5 +37,11 @@ public class NbaApiService {
         String url = BASE_URL + "/players?team_ids[]=" + teamId;
         ResponseEntity<ApiResponse> response = restTemplate.exchange(url, HttpMethod.GET, entity, ApiResponse.class);
         return response.getBody();
+    }
+
+    public StatsResponse getPlayerStats(String playerName, Integer season) {
+        String url = NBA_BASE_URL + "playertotals?playerName=" + playerName +"&season=" + season;
+         ResponseEntity<StatsResponse> response = restTemplate.exchange(url, HttpMethod.GET, HttpEntity.EMPTY, StatsResponse.class);
+         return response.getBody();
     }
 }
