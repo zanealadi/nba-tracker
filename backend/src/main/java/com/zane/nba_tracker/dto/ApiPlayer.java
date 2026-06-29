@@ -12,7 +12,7 @@ public class ApiPlayer {
     private String height;
     private String weight;
     @JsonProperty("jersey_number")
-    private int jerseyNumber;
+    private Integer jerseyNumber;
     private String college;
     private String country;
     @JsonProperty("draft_year")
