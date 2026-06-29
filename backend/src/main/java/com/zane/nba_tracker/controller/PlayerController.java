@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.zane.nba_tracker.dto.ApiPlayer;
 import com.zane.nba_tracker.dto.ApiResponse;
@@ -24,6 +25,7 @@ import com.zane.nba_tracker.service.PlayerService;
 
 @RestController
 @RequestMapping("/api/players")
+@CrossOrigin(origins = "http://localhost:5173")
 public class PlayerController {
     @Autowired
     private PlayerService playerService;
