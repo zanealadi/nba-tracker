@@ -4,7 +4,7 @@ function SearchBar({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState('')
 
   return (
-    <div>
+    <div className='search-bar'>
         <input
             type="text"
             value={searchTerm}
