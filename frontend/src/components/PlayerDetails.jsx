@@ -30,11 +30,11 @@ function PlayerDetails({ player, onBack }) {
     </select>
         {stats ? (
             <div>
-                <p>Points: {stats.points}</p>
-                <p>Assists: {stats.assists}</p>
-                <p>Rebounds: {stats.totalRb}</p>
-                <p>Steals: {stats.steals}</p>
-                <p>Blocks: {stats.blocks}</p>
+                <p>Points Per Game: {(stats.points / stats.games).toFixed(1)}</p>
+                <p>Assists Per Game: {(stats.assists / stats.games).toFixed(1)}</p>
+                <p>Rebounds Per Game: {(stats.totalRb / stats.games).toFixed(1)}</p>
+                <p>Steals Per Game: {(stats.steals / stats.games).toFixed(1)}</p>
+                <p>Blocks Per Game: {(stats.blocks / stats.games).toFixed(1)}</p>
                 <p>Games Played: {stats.games}</p>
             </div>
         ) : (
