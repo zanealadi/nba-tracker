@@ -1,6 +1,7 @@
 import FavoriteButton from "./FavoriteButton"
 
-function PlayerCard({ player, onSelect }) {
+function PlayerCard({ player, onSelect, favoritedMap, onFavoriteToggle}) {
+  const isFavorited = favoritedMap.has(player.id)
 
   return (
     <div className="player-card" onClick={() => onSelect(player)}>
@@ -10,7 +11,7 @@ function PlayerCard({ player, onSelect }) {
       <p>Height: {player.height}</p>
       <p>Weight: {player.weight}</p>
       <p>Jersey Number: {player.jersey_number}</p>
-      <FavoriteButton player={player} />
+      <FavoriteButton player={player} isFavorited={isFavorited} onFavoriteToggle={onFavoriteToggle}/>
     </div>
   )
 }
