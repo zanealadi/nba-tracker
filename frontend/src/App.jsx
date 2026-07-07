@@ -64,7 +64,9 @@ function App() {
       <h1>NBA Tracker</h1>
       <nav>
         <button onClick={() => setCurrentPage('search')}>Search</button>
-        <button onClick={() => setCurrentPage('favorites')}>Favorites</button>
+        <button onClick={() => setCurrentPage('favorites')}>
+          Favorites ({favoritedMap.size})
+        </button>
       </nav>
       {currentPage === 'search' ? (
         <div>
