@@ -191,6 +191,11 @@ nav button:hover {
   color: #1a1a2e;
 }
 
+nav button.active {
+  background-color: #f5a623;
+  color: #1a1a2e;
+}
+
 .search-bar button:last-child {
   border-radius: 0 8px 8px 0;
   background-color: #3a3a5e;
@@ -216,4 +221,11 @@ nav button:hover {
 .back-button:hover {
   background-color: #f5a623;
   color: #1a1a2e;
+}
+
+.empty-state {
+  text-align: center;
+  color: #b0b0c0;
+  font-size: 1.1rem;
+  margin-top: 3rem;
 }

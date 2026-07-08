@@ -68,8 +68,13 @@ function App() {
     <div className="App">
       <h1>NBA Tracker</h1>
       <nav>
-        <button onClick={() => setCurrentPage('search')}>Search</button>
-        <button onClick={() => setCurrentPage('favorites')}>
+        <button 
+          className={currentPage === 'search' ? 'active' : ''}
+          onClick={() => setCurrentPage('search')}
+        >Search</button>
+        <button 
+          className={currentPage === 'favorites' ? 'active' : ''}
+          onClick={() => setCurrentPage('favorites')}>
           Favorites ({favoritedMap.size})
         </button>
       </nav>
@@ -89,6 +94,7 @@ function App() {
               />
             ))
           )}
+          {players.length === 0 && <p className="empty-state">No players found. Try searching for a name!</p>}
         </div>
       ) : (
       <FavoritesPage 
@@ -96,7 +102,6 @@ function App() {
         onFavoriteToggle={handleFavoriteToggle}
       />
       )}
-      
     </div>
   )
 }

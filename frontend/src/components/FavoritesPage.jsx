@@ -19,6 +19,7 @@ function FavoritesPage({favoritedMap, onFavoriteToggle}) {
         {favorites.map(player => (
             <FavoriteCard key={player.id} player={player} favoritedMap={favoritedMap} onFavoriteToggle={onFavoriteToggle}/>
         ))}
+        {favorites.length === 0 && <p className="empty-state">No favorites yet! Search for players to add them.</p>}
         </div>
     )
 }
