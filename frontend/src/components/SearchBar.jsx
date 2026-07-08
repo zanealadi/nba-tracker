@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function SearchBar({ onSearch }) {
+function SearchBar({ onSearch, onClear }) {
   const [searchTerm, setSearchTerm] = useState('')
 
   return (
@@ -17,6 +17,7 @@ function SearchBar({ onSearch }) {
             placeholder="Search for a player..."
         />
         <button onClick={() => onSearch(searchTerm)}>Search</button>
+        <button onClick={() => { onClear(); setSearchTerm('') }}>✕ Clear</button>
     </div>
   )
 }

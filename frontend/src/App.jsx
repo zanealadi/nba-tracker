@@ -11,6 +11,11 @@ function App() {
   const [currentPage, setCurrentPage] = useState('search')
   const [favoritedMap, setFavoritedMap] = useState(new Map())
 
+  function clearSearch() {
+    setPlayers([])
+    setSelectedPlayer(null)
+  }
+
   function handleSearch(term) {
     fetch('http://localhost:8080/api/players/search?name=' + term)
       .then(response => response.json())
@@ -70,7 +75,7 @@ function App() {
       </nav>
       {currentPage === 'search' ? (
         <div>
-          <SearchBar onSearch={handleSearch} />
+          <SearchBar onSearch={handleSearch} onClear={clearSearch}/>
           {selectedPlayer ? (
             <PlayerDetails player={selectedPlayer} onBack={() => setSelectedPlayer(null)} />
           ) : (

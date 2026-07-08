@@ -20,7 +20,6 @@ function PlayerDetails({ player, onBack }) {
     }, [player, season])
   return (
     <div className="player-details">
-    <button onClick={onBack}>← Back to Results</button>
     <h2>{player.first_name} {player.last_name}</h2>
     <select value={season} onChange={(e) => setSeason(Number(e.target.value))}>
         <option value={2025}>2024-25</option>
@@ -40,7 +39,7 @@ function PlayerDetails({ player, onBack }) {
         ) : (
           <p>Stats currently unavailable — try again later.</p>
         )}
-    <button onClick={onBack}>← Back to Results</button>
+    <button className="back-button" onClick={onBack}>← Back to Results</button>
     </div>
   )
 }
