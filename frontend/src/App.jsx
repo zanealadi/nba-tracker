@@ -10,6 +10,7 @@ function App() {
   const [selectedPlayer, setSelectedPlayer] = useState(null)
   const [currentPage, setCurrentPage] = useState('search')
   const [favoritedMap, setFavoritedMap] = useState(new Map())
+  const [compareList, setCompareList] = useState([])
 
   function clearSearch() {
     setPlayers([])
@@ -64,6 +65,16 @@ function App() {
     }
   }
 
+  function handleCompareToggle(player) {
+    if (compareList.find(p => p.id === player.id)) {
+      // already in list so remove them
+      setCompareList(prev => prev.filter(p => p.id !== player.id))
+    } else if (compareList.length < 2) {
+      // add them
+      setCompareList(prev => [...prev, player])
+    }
+  }
+
   return (
     <div className="App">
       <h1>NBA Tracker</h1>
@@ -78,6 +89,15 @@ function App() {
           Favorites ({favoritedMap.size})
         </button>
       </nav>
+      {compareList.length > 0 && (
+        <div className="compare-panel">
+          <p>Comparing: {compareList.map(p => p.first_name).join(' vs ')}</p>
+          {compareList.length === 2 && (
+            <button onClick={() => setCurrentPage('compare')}>Compare!</button>
+          )}
+          <button onClick={() => setCompareList([])}>Clear</button>
+        </div>
+      )}
       {currentPage === 'search' ? (
         <div>
           <SearchBar onSearch={handleSearch} onClear={clearSearch}/>
@@ -91,16 +111,20 @@ function App() {
                 onSelect={setSelectedPlayer}
                 favoritedMap={favoritedMap}
                 onFavoriteToggle={handleFavoriteToggle}
+                compareList={compareList}
+                onCompareToggle={handleCompareToggle}
               />
             ))
           )}
           {players.length === 0 && <p className="empty-state">No players found. Try searching for a name!</p>}
         </div>
-      ) : (
+      ) :  currentPage === 'favorites'  ? (
       <FavoritesPage 
         favoritedMap={favoritedMap}
         onFavoriteToggle={handleFavoriteToggle}
       />
+      ) : (
+        <p>Compare page coming soon!</p>
       )}
     </div>
   )

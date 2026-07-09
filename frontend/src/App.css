@@ -229,3 +229,54 @@ nav button.active {
   font-size: 1.1rem;
   margin-top: 3rem;
 }
+
+.compare-button {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 3.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.compare-button:hover {
+  transform: scale(1.2);
+}
+
+.compare-button.comparing {
+  filter: brightness(1.5);
+}
+
+.compare-panel {
+  background-color: #2a2a3e;
+  border: 2px solid #f5a623;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.compare-panel p {
+  color: #f5a623;
+  font-weight: bold;
+}
+
+.compare-panel button {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 2px solid #f5a623;
+  background: none;
+  color: #f5a623;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.compare-panel button:hover {
+  background-color: #f5a623;
+  color: #1a1a2e;
+}
