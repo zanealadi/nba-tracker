@@ -87,8 +87,7 @@ public class PlayerController {
     }
 
     @GetMapping("/stats")
-    public StatsResponse listPlayersByNameAndSeason(@RequestParam String playerName, @RequestParam Integer season) {
-        StatsResponse stats = nbaApiService.getPlayerStats(playerName, season);
-        return stats;
+    public StatsResponse listPlayersByNameAndSeason(@RequestParam String playerName, @RequestParam Integer season, @RequestParam String team) {
+        return nbaApiService.getPlayerStats(playerName, season, team);
     }
 }

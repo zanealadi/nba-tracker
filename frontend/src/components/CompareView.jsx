@@ -2,26 +2,43 @@ import { useState, useEffect } from "react"
 
 function CompareView({ compareList, onBack }) {
   const [stats, setStats] = useState([null, null])
+  const [season, setSeason] = useState(2025)
+
+  function normalize(str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+  }
 
   useEffect(() => {
     async function playerCompare() {
       const player1 = compareList[0]
       const player2 = compareList[1]
-      const url1 = 'http://localhost:8080/api/players/stats?playerName=' + player1.first_name + '+' + player1.last_name + '&season=2025'
-      const url2 = 'http://localhost:8080/api/players/stats?playerName=' + player2.first_name + '+' + player2.last_name + '&season=2025'
+      const url1 = 'http://localhost:8080/api/players/stats?playerName=' + player1.first_name + '+' + player1.last_name + '&season=' + season + '&team=' + player1.team.abbreviation
+      const url2 = 'http://localhost:8080/api/players/stats?playerName=' + player2.first_name + '+' + player2.last_name + '&season=' + season + '&team=' + player2.team.abbreviation
       
       const [data1, data2] = await Promise.all([
         fetch(url1).then(r => r.json()),
-        fetch(url2).then(r => r.json())
+        fetch(url2).then(r => r.json()),
       ])
-      setStats([data1.data[0], data2.data[0]])
+      const match1 = data1.data.find(p => 
+        normalize(p.playerName).toLowerCase().includes(normalize(player1.last_name))
+      )
+      const match2 = data2.data.find(p => 
+        normalize(p.playerName).toLowerCase().includes(normalize(player2.last_name))
+      )
+      setStats([match1 || null, match2 || null])
     }
     playerCompare()
-  }, [])
+  }, [season])
 
   return (
     <div className="compare-view">
       <button className="back-button" onClick={onBack}>← Back to Search</button>
+      <select value={season} onChange={(e) => setSeason(Number(e.target.value))}>
+        <option value={2025}>2024-25</option>
+        <option value={2024}>2023-24</option>
+        <option value={2023}>2022-23</option>
+        <option value={2022}>2021-22</option>
+      </select>
       <h2>Player Comparison</h2>
       {stats[0] && stats[1] ? (
         <div className="compare-grid">
@@ -52,15 +69,6 @@ function CompareView({ compareList, onBack }) {
                 <span>{stats[0].games}</span>
                 <label>GP</label>
                 </div>
-            </div>
-
-            <div className="compare-labels">
-                <div className="compare-stat"><label>PPG</label></div>
-                <div className="compare-stat"><label>APG</label></div>
-                <div className="compare-stat"><label>RPG</label></div>
-                <div className="compare-stat"><label>SPG</label></div>
-                <div className="compare-stat"><label>BPG</label></div>
-                <div className="compare-stat"><label>GP</label></div>
             </div>
 
             <div className="compare-player">

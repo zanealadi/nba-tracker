@@ -4,13 +4,20 @@ import { useEffect } from "react"
 function PlayerDetails({ player, onBack }) {
     const [stats, setStats] = useState(null)
     const [season, setSeason] = useState(2025)
+
+    function normalize(str) {
+        return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+    }
     
     useEffect(() => {
         async function fetchStats() {
             try {
-                const response = await fetch('http://localhost:8080/api/players/stats?playerName=' + player.first_name + '+' + player.last_name + '&season=' + season)
+                const response = await fetch('http://localhost:8080/api/players/stats?playerName=' + player.first_name + '+' + player.last_name + '&season=' + season + '&team=' + player.team.abbreviation)
                 const data = await response.json()
-                setStats(data.data[0] || null)
+                const match = data.data.find(p => 
+                    normalize(p.playerName).toLowerCase().includes(normalize(player.last_name))
+                )
+                setStats(match || null)
             } catch (error) {
                 console.error('Stats unavailable:', error)
             setStats(null)

@@ -18,14 +18,28 @@ function App() {
     setSelectedPlayer(null)
   }
 
-  function handleSearch(term) {
-    fetch('http://localhost:8080/api/players/search?name=' + term)
-      .then(response => response.json())
-      .then(data => setPlayers(data.data || []))
-      .catch(error => {
-        console.error('Search failed:', error)
-        setPlayers([])
-      })
+function handleSearch(term) {
+  const trimmed = term.trim()
+  const searchWord = trimmed.split(' ').pop()
+  
+  fetch('http://localhost:8080/api/players/search?name=' + searchWord)
+    .then(response => response.json())
+    .then(data => {
+      let results = data.data || []
+      
+      if (trimmed.split(' ').length > 1) {
+        const fullName = trimmed.toLowerCase()
+        results = results.filter(p => 
+          (p.first_name + ' ' + p.last_name).toLowerCase().includes(fullName)
+        )
+      }
+      
+      setPlayers(results)
+    })
+    .catch(error => {
+      console.error('Search failed:', error)
+      setPlayers([])
+    })
   }
 
   async function handleFavoriteToggle(player) {

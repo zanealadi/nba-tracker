@@ -39,9 +39,9 @@ public class NbaApiService {
         return response.getBody();
     }
 
-    public StatsResponse getPlayerStats(String playerName, Integer season) {
-        String url = NBA_BASE_URL + "playertotals?playerName=" + playerName +"&season=" + season;
-         ResponseEntity<StatsResponse> response = restTemplate.exchange(url, HttpMethod.GET, HttpEntity.EMPTY, StatsResponse.class);
-         return response.getBody();
+    public StatsResponse getPlayerStats(String playerName, Integer season, String team) {
+        String url = NBA_BASE_URL + "playertotals?season=" + season + "&team=" + team + "&pageSize=100";
+        ResponseEntity<StatsResponse> response = restTemplate.exchange(url, HttpMethod.GET, HttpEntity.EMPTY, StatsResponse.class);
+        return response.getBody();
     }
 }
