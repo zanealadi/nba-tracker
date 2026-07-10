@@ -4,6 +4,7 @@ import { useState } from 'react'
 import PlayerCard from './components/PlayerCard'
 import PlayerDetails from './components/PlayerDetails'
 import FavoritesPage from './components/FavoritesPage'
+import CompareView from './components/CompareView'
 
 function App() {
   const [players, setPlayers] = useState([])
@@ -124,7 +125,10 @@ function App() {
         onFavoriteToggle={handleFavoriteToggle}
       />
       ) : (
-        <p>Compare page coming soon!</p>
+        <CompareView 
+          compareList={compareList} 
+          onBack={() => setCurrentPage('search')} 
+        />
       )}
     </div>
   )
