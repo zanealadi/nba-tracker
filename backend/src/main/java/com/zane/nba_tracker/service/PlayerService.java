@@ -35,11 +35,14 @@ public class PlayerService {
     }
 
     public Player saveFromApi(ApiPlayer apiPlayer) {
-        Player player = new Player(apiPlayer.getFirstName(), 
-        apiPlayer.getLastName(), 
-        apiPlayer.getTeam().getName(), 
-        apiPlayer.getPosition(), 
-        apiPlayer.getJerseyNumber());
+        Player player = new Player(
+            apiPlayer.getFirstName(),
+            apiPlayer.getLastName(),
+            apiPlayer.getTeam().getName(),
+            apiPlayer.getPosition(),
+            apiPlayer.getJerseyNumber(),
+            apiPlayer.getTeam().getAbbreviation()
+        );
         return playerRepository.save(player);
     }
 

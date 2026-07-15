@@ -18,9 +18,9 @@ function App() {
     setSelectedPlayer(null)
   }
 
-function handleSearch(term) {
-  const trimmed = term.trim()
-  const searchWord = trimmed.split(' ').pop()
+  function handleSearch(term) {
+    const trimmed = term.trim()
+    const searchWord = trimmed.split(' ').pop()
   
   fetch('http://localhost:8080/api/players/search?name=' + searchWord)
     .then(response => response.json())
@@ -90,6 +90,11 @@ function handleSearch(term) {
     }
   }
 
+  function handleFavoriteSelect(player) {
+    setSelectedPlayer(player)
+    setCurrentPage('search')
+  }
+
   return (
     <div className="App">
       <h1>NBA Tracker</h1>
@@ -137,6 +142,7 @@ function handleSearch(term) {
       <FavoritesPage 
         favoritedMap={favoritedMap}
         onFavoriteToggle={handleFavoriteToggle}
+        onSelect={handleFavoriteSelect}
       />
       ) : (
         <CompareView 

@@ -23,6 +23,8 @@ public class Player {
     private String position;
     @Column(name = "jersey_number")
     private int jerseyNumber;
+    @Column(name = "team_abbreviation")
+    private String teamAbbreviation;
 
     public String getFirstName() {
         return firstName;
@@ -72,12 +74,21 @@ public class Player {
         this.id = id;
     }
 
-    public Player(String firstName, String lastName, String teamName, String position, int jerseyNumber) {
+    public String getTeamAbbreviation() {
+        return teamAbbreviation;
+    }
+
+    public void setTeamAbbreviation(String teamAbbreviation) {
+        this.teamAbbreviation = teamAbbreviation;
+    }
+
+    public Player(String firstName, String lastName, String teamName, String position, int jerseyNumber, String teamAbbreviation) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.teamName = teamName;
         this.position = position;
         this.jerseyNumber = jerseyNumber;
+        this.teamAbbreviation = teamAbbreviation;
     }
 
     public Player(){

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import FavoriteCard from "./FavoriteCard"
 
-function FavoritesPage({favoritedMap, onFavoriteToggle}) {
+function FavoritesPage({favoritedMap, onFavoriteToggle, onSelect}) {
     const [favorites, setFavorites] = useState([])
 
     useEffect(() => {
@@ -17,7 +17,7 @@ function FavoritesPage({favoritedMap, onFavoriteToggle}) {
         <div className="favorites-page"> 
         <h2>My Favorites</h2>
         {favorites.map(player => (
-            <FavoriteCard key={player.id} player={player} favoritedMap={favoritedMap} onFavoriteToggle={onFavoriteToggle}/>
+            <FavoriteCard key={player.id} player={player} favoritedMap={favoritedMap} onFavoriteToggle={onFavoriteToggle} onSelect={onSelect}/>
         ))}
         {favorites.length === 0 && <p className="empty-state">No favorites yet! Search for players to add them.</p>}
         </div>
