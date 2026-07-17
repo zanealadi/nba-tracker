@@ -358,3 +358,25 @@ nav button.active {
   display: block;
   margin: 0 auto 1rem auto;
 }
+
+.team-search select {
+  background-color: #2a2a3e;
+  color: #eaeaea;
+  border: 1px solid #3a3a5e;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.team-search select:hover {
+  border-color: #f5a623;
+}
+
+.team-search select:focus {
+  outline: none;
+  border-color: #f5a623;
+}

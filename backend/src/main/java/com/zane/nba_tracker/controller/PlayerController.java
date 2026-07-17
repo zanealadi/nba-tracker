@@ -48,14 +48,9 @@ public class PlayerController {
         return playerService.getAllPlayers();
     }
 
-    @GetMapping("/{id}")
-    public Optional<Player> getPlayerById(@PathVariable Long id) {
-        return playerService.getPlayerById(id);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deletePlayer(@PathVariable Long id) {
-        playerService.deletePlayer(id);
+    @GetMapping("/team-stats")
+    public StatsResponse getTeamStats(@RequestParam String team) {
+        return nbaApiService.getTeamStats(team);
     }
 
     @PostMapping
@@ -89,5 +84,15 @@ public class PlayerController {
     @GetMapping("/stats")
     public StatsResponse listPlayersByNameAndSeason(@RequestParam String playerName, @RequestParam Integer season, @RequestParam String team) {
         return nbaApiService.getPlayerStats(playerName, season, team);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Player> getPlayerById(@PathVariable Long id) {
+        return playerService.getPlayerById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePlayer(@PathVariable Long id) {
+        playerService.deletePlayer(id);
     }
 }

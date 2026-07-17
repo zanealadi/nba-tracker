@@ -34,13 +34,19 @@ public class NbaApiService {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", apiKey);
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        String url = BASE_URL + "/players?team_ids[]=" + teamId;
+        String url = BASE_URL + "players?team_ids[]=" + teamId + "&per_page=100";
         ResponseEntity<ApiResponse> response = restTemplate.exchange(url, HttpMethod.GET, entity, ApiResponse.class);
         return response.getBody();
     }
 
     public StatsResponse getPlayerStats(String playerName, Integer season, String team) {
         String url = NBA_BASE_URL + "playertotals?season=" + season + "&team=" + team + "&pageSize=100";
+        ResponseEntity<StatsResponse> response = restTemplate.exchange(url, HttpMethod.GET, HttpEntity.EMPTY, StatsResponse.class);
+        return response.getBody();
+    }
+
+    public StatsResponse getTeamStats(String teamAbbreviation) {
+        String url = NBA_BASE_URL + "playertotals?season=2025&team=" + teamAbbreviation + "&pageSize=20&sortBy=points&ascending=false&isPlayoff=false";
         ResponseEntity<StatsResponse> response = restTemplate.exchange(url, HttpMethod.GET, HttpEntity.EMPTY, StatsResponse.class);
         return response.getBody();
     }

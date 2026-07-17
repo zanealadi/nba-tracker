@@ -5,6 +5,8 @@ import PlayerCard from './components/PlayerCard'
 import PlayerDetails from './components/PlayerDetails'
 import FavoritesPage from './components/FavoritesPage'
 import CompareView from './components/CompareView'
+import TeamSearch from './components/TeamSearch'
+import StatsCard from './components/StatsCard'
 
 function App() {
   const [players, setPlayers] = useState([])
@@ -12,13 +14,16 @@ function App() {
   const [currentPage, setCurrentPage] = useState('search')
   const [favoritedMap, setFavoritedMap] = useState(new Map())
   const [compareList, setCompareList] = useState([])
+  const [teamMode, setTeamMode] = useState(false)
 
   function clearSearch() {
     setPlayers([])
     setSelectedPlayer(null)
+    setTeamMode(false)
   }
 
   function handleSearch(term) {
+    setTeamMode(false)
     const trimmed = term.trim()
     const searchWord = trimmed.split(' ').pop()
   
@@ -95,6 +100,24 @@ function App() {
     setCurrentPage('search')
   }
 
+  function handleTeamSelect(team) {
+    if (!team) {
+      setPlayers([])
+      return
+    }
+    fetch('http://localhost:8080/api/players/team-stats?team=' + team.abbreviation)
+      .then(response => response.json())
+      .then(data => {
+        setPlayers(data.data || [])
+        setSelectedPlayer(null)
+        setTeamMode(true)
+      })
+      .catch(error => {
+        console.error('Team fetch failed:', error)
+        setPlayers([])
+      })
+  }
+
   return (
     <div className="App">
       <h1>NBA Tracker</h1>
@@ -121,8 +144,13 @@ function App() {
       {currentPage === 'search' ? (
         <div>
           <SearchBar onSearch={handleSearch} onClear={clearSearch}/>
+          <TeamSearch onTeamSelect={handleTeamSelect}/>
           {selectedPlayer ? (
             <PlayerDetails player={selectedPlayer} onBack={() => setSelectedPlayer(null)} />
+          ) : teamMode ? (
+            players.map((stat, index) => (
+              <StatsCard key={index} stat={stat} />
+            ))
           ) : (
             players.map(player => (
               <PlayerCard 
@@ -136,7 +164,7 @@ function App() {
               />
             ))
           )}
-          {players.length === 0 && <p className="empty-state">No players found. Try searching for a name!</p>}
+          {players.length === 0 && !selectedPlayer && <p className="empty-state">No players found. Try searching for a name!</p>}
         </div>
       ) :  currentPage === 'favorites'  ? (
       <FavoritesPage 
