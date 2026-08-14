@@ -42,7 +42,7 @@ function App() {
     const trimmed = term.trim()
     const searchWord = trimmed.split(' ').pop()
   
-  fetch('http://localhost:8080/api/players/search?name=' + searchWord)
+  fetch('https://nba-tracker-production-a639.up.railway.app/api/players/search?name=' + searchWord)
     .then(response => response.json())
     .then(data => {
       let results = data.data || []
@@ -65,7 +65,7 @@ function App() {
   async function handleFavoriteToggle(player) {
     if (favoritedMap.has(player.id)) {
       const dbId = favoritedMap.get(player.id)
-      await fetch('http://localhost:8080/api/players/' + dbId, { method: 'DELETE' })
+      await fetch('https://nba-tracker-production-a639.up.railway.app/api/players/' + dbId, { method: 'DELETE' })
       setFavoritedMap(prev => {
         const next = new Map(prev)
         next.delete(player.id)
@@ -75,7 +75,7 @@ function App() {
 
     // check if it already is a data base player
     } else if ([...favoritedMap.values()].includes(player.id)) {
-      await fetch('http://localhost:8080/api/players/' + player.id, { method: 'DELETE' })
+      await fetch('https://nba-tracker-production-a639.up.railway.app/api/players/' + player.id, { method: 'DELETE' })
       setFavoritedMap(prev => {
         const next = new Map(prev)
         for (const [key, val] of next) {
@@ -90,7 +90,7 @@ function App() {
 
     } else {
       // isnt already favorited so save
-      const response = await fetch('http://localhost:8080/api/players/favorites', {
+      const response = await fetch('https://nba-tracker-production-a639.up.railway.app/api/players/favorites', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(player)
@@ -133,7 +133,7 @@ function App() {
       setPlayers([])
       return
     }
-    fetch('http://localhost:8080/api/players/team-stats?team=' + team.abbreviation)
+    fetch('https://nba-tracker-production-a639.up.railway.app/api/players/team-stats?team=' + team.abbreviation)
       .then(response => response.json())
       .then(data => {
         setPlayers(data.data || [])

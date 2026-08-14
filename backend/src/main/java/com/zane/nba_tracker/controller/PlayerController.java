@@ -25,7 +25,7 @@ import com.zane.nba_tracker.service.PlayerService;
 
 @RestController
 @RequestMapping("/api/players")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 public class PlayerController {
     @Autowired
     private PlayerService playerService;
@@ -95,4 +95,5 @@ public class PlayerController {
     public void deletePlayer(@PathVariable Long id) {
         playerService.deletePlayer(id);
     }
+
 }

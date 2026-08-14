@@ -12,7 +12,7 @@ function PlayerDetails({ player, onBack }) {
     useEffect(() => {
         async function fetchStats() {
             try {
-                const response = await fetch('http://localhost:8080/api/players/stats?playerName=' + player.first_name + '+' + player.last_name + '&season=' + season + '&team=' + player.team.abbreviation)
+                const response = await fetch('https://nba-tracker-production-a639.up.railway.app/api/players/stats?playerName=' + player.first_name + '+' + player.last_name + '&season=' + season + '&team=' + player.team.abbreviation)
                 const data = await response.json()
                 const match = data.data.find(p => 
                     normalize(p.playerName).toLowerCase().includes(normalize(player.last_name))

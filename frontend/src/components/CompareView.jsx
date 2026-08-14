@@ -12,8 +12,8 @@ function CompareView({ compareList, onBack }) {
     async function playerCompare() {
       const player1 = compareList[0]
       const player2 = compareList[1]
-      const url1 = 'http://localhost:8080/api/players/stats?playerName=' + player1.first_name + '+' + player1.last_name + '&season=' + season + '&team=' + player1.team.abbreviation
-      const url2 = 'http://localhost:8080/api/players/stats?playerName=' + player2.first_name + '+' + player2.last_name + '&season=' + season + '&team=' + player2.team.abbreviation
+      const url1 = 'https://nba-tracker-production-a639.up.railway.app/api/players/stats?playerName=' + player1.first_name + '+' + player1.last_name + '&season=' + season + '&team=' + player1.team.abbreviation
+      const url2 = 'https://nba-tracker-production-a639.up.railway.app/api/players/stats?playerName=' + player2.first_name + '+' + player2.last_name + '&season=' + season + '&team=' + player2.team.abbreviation
       
       const [data1, data2] = await Promise.all([
         fetch(url1).then(r => r.json()),
