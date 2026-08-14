@@ -1,6 +1,6 @@
 import './App.css'
 import SearchBar from './components/SearchBar'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PlayerCard from './components/PlayerCard'
 import PlayerDetails from './components/PlayerDetails'
 import FavoritesPage from './components/FavoritesPage'
@@ -12,9 +12,24 @@ function App() {
   const [players, setPlayers] = useState([])
   const [selectedPlayer, setSelectedPlayer] = useState(null)
   const [currentPage, setCurrentPage] = useState('search')
-  const [favoritedMap, setFavoritedMap] = useState(new Map())
+  const [favoritedMap, setFavoritedMap] = useState(() => {
+    const saved = localStorage.getItem('favoritedMap')
+    return saved ? new Map(JSON.parse(saved)) : new Map()
+  })
   const [compareList, setCompareList] = useState([])
   const [teamMode, setTeamMode] = useState(false)
+  const [savedPlayers, setSavedPlayers] = useState(() => {
+    const saved = localStorage.getItem('savedPlayers')
+    return saved ? JSON.parse(saved) : []
+  })
+
+  useEffect(() => {
+    localStorage.setItem('savedPlayers', JSON.stringify(savedPlayers))
+  }, [savedPlayers])
+
+  useEffect(() => {
+    localStorage.setItem('favoritedMap', JSON.stringify([...favoritedMap]))
+  }, [favoritedMap])
 
   function clearSearch() {
     setPlayers([])
@@ -56,6 +71,8 @@ function App() {
         next.delete(player.id)
         return next
       })
+      setSavedPlayers(prev => prev.filter(p => p.id !== player.id))
+
     // check if it already is a data base player
     } else if ([...favoritedMap.values()].includes(player.id)) {
       await fetch('http://localhost:8080/api/players/' + player.id, { method: 'DELETE' })
@@ -69,6 +86,8 @@ function App() {
         }
         return next
       })
+      setSavedPlayers(prev => prev.filter(p => p.id !== player.id))
+
     } else {
       // isnt already favorited so save
       const response = await fetch('http://localhost:8080/api/players/favorites', {
@@ -82,6 +101,15 @@ function App() {
         next.set(player.id, data.id)
         return next
       })
+      setSavedPlayers(prev => [...prev, {
+        id: data.id,
+        firstName: player.first_name,
+        lastName: player.last_name,
+        teamName: player.team?.full_name || player.teamName,
+        teamAbbreviation: player.team?.abbreviation || player.teamAbbreviation,
+        position: player.position,
+        jerseyNumber: player.jersey_number || player.jerseyNumber
+      }])
     }
   }
 
@@ -171,6 +199,7 @@ function App() {
         favoritedMap={favoritedMap}
         onFavoriteToggle={handleFavoriteToggle}
         onSelect={handleFavoriteSelect}
+        savedPlayers={savedPlayers}
       />
       ) : (
         <CompareView 
