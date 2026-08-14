@@ -25,7 +25,7 @@ import com.zane.nba_tracker.service.PlayerService;
 
 @RestController
 @RequestMapping("/api/players")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://nba-tracker-blond.vercel.app")
 public class PlayerController {
     @Autowired
     private PlayerService playerService;
