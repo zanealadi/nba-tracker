@@ -139,6 +139,18 @@ The app will be available at `http://localhost:5173`
 
 ---
 
+## Screenshots
+
+> Search for any NBA player by name and view their full profile
+![Search Page](screenshots/player-search.png)
+> Click a player card to see their per game stats with a season selector
+![Player Details](screenshots/player-card.png)
+> Select two players to compare their stats side by side
+![Compare View](screenshots/player-compare.png)
+> Save favorite players and access them anytime from the Favorites tab
+![Favorites Page](screenshots/player-favorites.png)
+---
+
 ## Known Limitations
 
 - Stats are not available for all players due to free API data coverage
